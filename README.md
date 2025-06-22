@@ -1,62 +1,53 @@
-# Mobile Banking App Review Analysis – Task 1
+# 📦 EthioMart Telegram Amharic Preprocessing Pipeline
 
-## 🧾 Overview
+This project processes and cleans Amharic-language messages collected from Ethiopian Telegram e-commerce channels.  
+It uses:
 
-This repository is part of a consulting simulation challenge by Omega Consultancy. The goal is to analyze customer satisfaction with mobile banking apps from three major Ethiopian banks by scraping Google Play Store reviews.
-
-This section (Task 1) focuses on:
-
-- Scraping 400+ reviews per bank.
-- Cleaning and preprocessing the data.
-- Saving the data for further sentiment and thematic analysis.
+- ✅ [**etnltk**](https://github.com/robeleq/etnltk) for Amharic NLP (normalization, tokenization, cleaning)
+- ✅ [**DVC**](https://dvc.org) for version control and data tracking
+- ✅ `pandas` and `nltk` for text processing and manipulation
 
 ---
+## 🔧 Setup Instructions
 
-## 🏦 Targeted Bank Apps
-
-| Bank                        | Google Play App ID                     |
-|----------------------------|----------------------------------------|
-| Commercial Bank of Ethiopia | `com.combanketh.mobilebanking`         |
-| Bank of Abyssinia           | `com.boa.boaMobileBanking`             |
-| Dashen Bank                 | `com.dashen.dashensuperapp`            |
-
----
-
-## 🧪 Scraping Methodology
-
-- **Tool used**: [`google-play-scraper`](https://pypi.org/project/google-play-scraper/)
-- **Language**: Python 3
-- **Data Collected**:
-  - Review text
-  - Rating (1–5 stars)
-  - Review date
-  - Bank name
-  - Source (`Google Play`)
-
----
-
-## 🧹 Preprocessing Steps
-
-1. Removed duplicate reviews.
-2. Normalized the review date to `YYYY-MM-DD` format.
-3. Appended metadata columns for `bank` and `source`.
-4. Ensured all reviews have valid content and ratings.
-5. Combined all reviews into a single CSV.
-
----
-
-## 📂 Output
-
-- ✅ `data/cleaned_reviews_all.csv` — contains cleaned reviews from all 3 banks.
-- Structure:
-
-| review | rating | date | bank | source |
-|--------|--------|------|------|--------|
-
----
-
-## 💡 How to Run Locally
+### 1. Clone Your Project Repo
 
 ```bash
-pip install -r requirements.txt
-python scripts/scrape_reviews.py
+git clone https://github.com/MenbereHailu/Amharic-E-commerce-Data-Extractor.git
+cd Amharic-E-commerce-Data-Extractor
+```
+## 🔧 Setup Instructions
+
+1. Clone this repository  
+2. Create and activate a virtual environment  
+3. Install Python dependencies from `requirements.txt`  
+4. Clone and install the [etnltk](https://github.com/robeleq/etnltk) library  
+5. Run the preprocessing script  
+6. Track and version cleaned output using DVC  
+
+---
+
+## ⚙️ Description of Preprocessing Script
+
+- Reads raw Telegram messages from CSV  
+- Applies Amharic normalization and cleaning using `etnltk`  
+- Tokenizes into sentences and words  
+- Saves output CSV with `UTF-8-SIG` encoding for Excel compatibility  
+
+### Output Columns:
+- `text`: Original message  
+- `cleaned_text`: Cleaned and normalized message  
+- `sentences`: Sentence tokens  
+- `words`: Word tokens  
+
+---
+
+## 💾 DVC Setup Instructions
+
+1. Run `dvc init` to initialize tracking  
+2. Use `dvc add data/processed/telegram_cleaned_etnltk.csv` to track the cleaned data  
+3. Commit DVC metadata with Git:  
+   ```bash
+   git add .  
+   git commit -m "Track cleaned Telegram data with DVC"
+
